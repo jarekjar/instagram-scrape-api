@@ -182,14 +182,13 @@ router.get("/notfollowingme", function (req, res, next) {
   } else {
     try {
       parsedData = JSON.parse(fs.readFileSync(`output/${profile}.json`, "utf8"));
-      console.log(parsedData)
       let { followers, following } = parsedData;
       following = normalizeData(following);
       followers = normalizeData(followers);
       const data = following.filter(
         (user) => !followers.some((otherUser) => user.id === otherUser.id)
       );
-      console.log(data.length);
+      console.log("items: ", data.length);
       res.status(200).send(data);
     } catch (err) {
       console.log(err);
